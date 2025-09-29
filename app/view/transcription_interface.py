@@ -94,7 +94,7 @@ class VideoInfoCard(CardWidget):
         self.info_layout.setContentsMargins(3, 8, 3, 8)
         self.info_layout.setSpacing(10)
 
-        self.video_title = BodyLabel(self.tr("请拖入音频或视频文件"), self)
+        self.video_title = BodyLabel(self.tr("Please drag and drop an audio or video file"), self)
         self.video_title.setFont(QFont("Microsoft YaHei", 14, QFont.Bold))
         self.video_title.setWordWrap(True)
         self.info_layout.addWidget(self.video_title, alignment=Qt.AlignTop)  # type: ignore
@@ -102,9 +102,9 @@ class VideoInfoCard(CardWidget):
         self.details_layout = QHBoxLayout()
         self.details_layout.setSpacing(15)
 
-        self.resolution_info = self.create_pill_button(self.tr("画质"), 110)
-        self.file_size_info = self.create_pill_button(self.tr("文件大小"), 110)
-        self.duration_info = self.create_pill_button(self.tr("时长"), 100)
+        self.resolution_info = self.create_pill_button(self.tr("Resolution"), 110)
+        self.file_size_info = self.create_pill_button(self.tr("File Size"), 110)
+        self.duration_info = self.create_pill_button(self.tr("Duration"), 100)
 
         self.progress_ring = ProgressRing(self)
         self.progress_ring.setFixedSize(20, 20)
@@ -129,8 +129,8 @@ class VideoInfoCard(CardWidget):
 
     def setup_button_layout(self) -> None:
         self.button_layout = QVBoxLayout()
-        self.open_folder_button = PushButton(self.tr("打开文件夹"), self)
-        self.start_button = PrimaryPushButton(self.tr("开始转录"), self)
+        self.open_folder_button = PushButton(self.tr("Open Folder"), self)
+        self.start_button = PrimaryPushButton(self.tr("Start Transcription"), self)
         self.button_layout.addWidget(self.open_folder_button)
         self.button_layout.addWidget(self.start_button)
 
@@ -148,12 +148,12 @@ class VideoInfoCard(CardWidget):
 
         self.video_title.setText(video_info.file_name.rsplit(".", 1)[0])
         self.resolution_info.setText(
-            self.tr("画质: ") + f"{video_info.width}x{video_info.height}"
+            self.tr("Resolution: ") + f"{video_info.width}x{video_info.height}"
         )
         file_size_mb = os.path.getsize(video_info.file_path) / 1024 / 1024
-        self.file_size_info.setText(self.tr("大小: ") + f"{file_size_mb:.1f} MB")
+        self.file_size_info.setText(self.tr("Size: ") + f"{file_size_mb:.1f} MB")
         duration = datetime.timedelta(seconds=int(video_info.duration_seconds))
-        self.duration_info.setText(self.tr("时长: ") + f"{duration}")
+        self.duration_info.setText(self.tr("Duration: ") + f"{duration}")
         if self.transcription_interface and self.transcription_interface.is_processing:  # type: ignore
             self.start_button.setEnabled(False)
         else:
@@ -210,8 +210,8 @@ class VideoInfoCard(CardWidget):
             open_folder(target_dir)
         else:
             InfoBar.warning(
-                self.tr("警告"),
-                self.tr("没有可用的字幕文件夹"),
+                self.tr("Warning"),
+                self.tr("No available subtitle folder"),
                 duration=2000,
                 parent=self,
             )
@@ -240,10 +240,10 @@ class VideoInfoCard(CardWidget):
     def on_transcript_error(self, error):
         """处理转录错误"""
         self.start_button.setEnabled(True)
-        self.start_button.setText(self.tr("重新转录"))
+        self.start_button.setText(self.tr("Retry Transcription"))
         self.start_button.setEnabled(True)
         InfoBar.error(
-            self.tr("转录失败"),
+            self.tr("Transcription Failed"),
             self.tr(error),
             duration=3000,
             parent=self.parent().parent(),
@@ -252,13 +252,13 @@ class VideoInfoCard(CardWidget):
     def on_transcript_finished(self, task):
         """转录完成处理"""
         self.start_button.setEnabled(True)
-        self.start_button.setText(self.tr("转录完成"))
+        self.start_button.setText(self.tr("Transcription Completed"))
         self.finished.emit(task)
 
     def reset_ui(self):
         """重置UI状态"""
         self.start_button.setDisabled(False)
-        self.start_button.setText(self.tr("开始转录"))
+        self.start_button.setText(self.tr("Start Transcription"))
         self.progress_ring.setValue(0)
 
     def set_task(self, task):
@@ -310,7 +310,7 @@ class TranscriptionInterface(QWidget):
         self.command_bar.setFixedHeight(40)
 
         # 添加打开文件按钮
-        self.open_file_action = Action(FluentIcon.FOLDER, self.tr("打开文件"))
+        self.open_file_action = Action(FluentIcon.FOLDER, self.tr("Open File"))
         self.open_file_action.triggered.connect(self._on_file_select)
         self.command_bar.addAction(self.open_file_action)
 
@@ -318,7 +318,7 @@ class TranscriptionInterface(QWidget):
 
         # 添加转录模型选择按钮
         self.model_button = TransparentDropDownPushButton(
-            self.tr("转录模型"), self, FluentIcon.SETTING
+            self.tr("Transcription Model"), self, FluentIcon.SETTING
         )
         self.model_button.setFixedHeight(34)
         self.model_button.setMinimumWidth(180)
@@ -381,8 +381,8 @@ class TranscriptionInterface(QWidget):
             self.finished.emit(task.output_path, task.file_path)
 
             InfoBar.success(
-                self.tr("转录完成"),
-                self.tr("开始字幕优化..."),
+                self.tr("Transcription Completed"),
+                self.tr("Starting subtitle optimization..."),
                 duration=3000,
                 position=InfoBarPosition.BOTTOM,
                 parent=self.parent(),
@@ -395,10 +395,10 @@ class TranscriptionInterface(QWidget):
 
         video_formats = " ".join(f"*.{fmt.value}" for fmt in SupportedVideoFormats)
         audio_formats = " ".join(f"*.{fmt.value}" for fmt in SupportedAudioFormats)
-        filter_str = f"{self.tr('媒体文件')} ({video_formats} {audio_formats});;{self.tr('视频文件')} ({video_formats});;{self.tr('音频文件')} ({audio_formats})"
+        filter_str = f"{self.tr('Media Files')} ({video_formats} {audio_formats});;{self.tr('Video Files')} ({video_formats});;{self.tr('Audio Files')} ({audio_formats})"
 
         file_path, _ = file_dialog.getOpenFileName(
-            self, self.tr("选择媒体文件"), desktop_path, filter_str
+            self, self.tr("Select Media File"), desktop_path, filter_str
         )
         if file_path:
             self.update_info(file_path)
@@ -413,7 +413,7 @@ class TranscriptionInterface(QWidget):
     def _on_video_info_error(self, error_msg):
         """处理视频信息提取错误"""
         self.is_processing = False
-        InfoBar.error(self.tr("错误"), self.tr(error_msg), duration=3000, parent=self)
+        InfoBar.error(self.tr("Error"), self.tr(error_msg), duration=3000, parent=self)
 
     def set_task(self, task: TranscribeTask) -> None:
         """设置任务并更新UI"""
@@ -434,8 +434,8 @@ class TranscriptionInterface(QWidget):
         """拖拽放下事件处理"""
         if self.is_processing:
             InfoBar.warning(
-                self.tr("警告"),
-                self.tr("正在处理中，请等待当前任务完成"),
+                self.tr("Warning"),
+                self.tr("Processing... Please wait for the current task to complete"),
                 duration=3000,
                 parent=self,
             )
@@ -457,16 +457,16 @@ class TranscriptionInterface(QWidget):
             if is_supported:
                 self.update_info(file_path)
                 InfoBar.success(
-                    self.tr("导入成功"),
-                    self.tr("开始语音转文字"),
+                    self.tr("Import Successful"),
+                    self.tr("Starting speech-to-text"),
                     duration=3000,
                     parent=self,
                 )
                 break
             else:
                 InfoBar.error(
-                    self.tr("格式错误") + file_ext,
-                    self.tr("请拖入音频或视频文件"),
+                    self.tr("Format Error: ") + file_ext,
+                    self.tr("Please drag and drop an audio or video file"),
                     duration=3000,
                     parent=self,
                 )

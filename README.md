@@ -1,95 +1,95 @@
 <div align="center">
   <img src="./docs/images/logo.png"alt="VideoCaptioner Logo" width="100">
-  <p>卡卡字幕助手</p>
+  <p>Kaka Subtitle Assistant</p>
   <h1>VideoCaptioner</h1>
-  <p>一款基于大语言模型(LLM)的视频字幕处理助手，支持语音识别、字幕断句、优化、翻译全流程处理</p>
+  <p>A video subtitle processing assistant based on Large Language Models (LLM), supporting speech recognition, subtitle segmentation, optimization, and translation in full workflow</p>
 
-简体中文 / [正體中文](./docs/README_TW.md) / [English](./docs/README_EN.md) / [日本語](./docs/README_JA.md)
+[简体中文](./README.md) / [正體中文](./docs/README_TW.md) / English / [日本語](./docs/README_JA.md)
 
 </div>
 
-## 项目介绍
+## Project Introduction
 
-卡卡字幕助手（VideoCaptioner）操作简单且无需高配置，支持网络调用和本地离线（支持调用GPU）两种方式进行语音识别，利用大语言模型进行字幕智能断句、校正、翻译，字幕视频全流程一键处理。为视频配上效果惊艳的字幕。
+Kaka Subtitle Assistant (VideoCaptioner) is simple to operate and requires no high-end configuration. It supports both online API calls and local offline processing (with GPU support) for speech recognition, utilizing Large Language Models for intelligent subtitle segmentation, correction, and translation. It provides one-click full workflow processing for subtitle videos, creating stunning subtitle effects.
 
-最新版本已经支持 VAD 、人声分离、字级时间戳、批量字幕等实用功能
+The latest version supports practical features including VAD, voice separation, character-level timestamps, and batch subtitle processing.
 
-- 无需GPU即可使用强大的语音识别引擎，生成精准字幕
-- 基于 LLM 的智能分割与断句，字幕阅读更自然流畅
-- AI字幕多线程优化与翻译，调整字幕格式、表达更地道专业
-- 支持批量视频字幕合成，提升处理效率
-- 直观的字幕编辑查看界面，支持实时预览和快捷编辑
-- 消耗模型 Token 少，且内置基础 LLM 模型，保证开箱即用
+- Use powerful speech recognition engines without GPU requirements to generate accurate subtitles
+- LLM-based intelligent segmentation and sentence breaking for more natural and fluent subtitle reading
+- AI subtitle multi-threaded optimization and translation, adjusting subtitle format for more authentic and professional expression
+- Support for batch video subtitle synthesis to improve processing efficiency
+- Intuitive subtitle editing and viewing interface with real-time preview and quick editing support
+- Low model token consumption with built-in basic LLM models for out-of-the-box usage
 
-## 界面预览
+## Interface Preview
 
 <div align="center">
-  <img src="https://h1.appinn.me/file/1731487405884_main.png" alt="软件界面预览" width="90%" style="border-radius: 5px;">
+  <img src="https://h1.appinn.me/file/1731487405884_main.png" alt="Software Interface Preview" width="90%" style="border-radius: 5px;">
 </div>
 
-![页面预览](https://h1.appinn.me/file/1731487410170_preview1.png)
-![页面预览](https://h1.appinn.me/file/1731487410832_preview2.png)
+![Page Preview](https://h1.appinn.me/file/1731487410170_preview1.png)
+![Page Preview](https://h1.appinn.me/file/1731487410832_preview2.png)
 
-## 测试
+## Testing
 
-全流程处理一个14分钟1080P的 [B站英文 TED 视频](https://www.bilibili.com/video/BV1jT411X7Dz)，调用本地 Whisper 模型进行语音识别，使用 `gpt-4o-mini` 模型优化和翻译为中文，总共消耗时间约 **4 分钟**。
+Full workflow processing of a 14-minute 1080P [Bilibili English TED video](https://www.bilibili.com/video/BV1jT411X7Dz), using local Whisper model for speech recognition and `gpt-4o-mini` model for optimization and translation to Chinese, with a total processing time of approximately **4 minutes**.
 
-近后台计算，模型优化和翻译消耗费用不足 ￥0.01（以OpenAI官方价格为计算）
+Based on background calculations, model optimization and translation costs less than ￥0.01 (calculated at OpenAI official pricing).
 
-具体字幕和视频合成的效果的测试结果图片，请参考 [TED视频测试](./docs/test.md)
+For specific test result images of subtitle and video synthesis effects, please refer to [TED Video Test](./docs/test.md)
 
-## 快速开始
+## Quick Start
 
-### Windows 用户
+### Windows Users
 
-#### 方式一：使用打包程序（推荐）
+#### Method 1: Using Packaged Program (Recommended)
 
-软件较为轻量，打包大小不足 60M,已集成所有必要环境，下载后可直接运行。
+The software is relatively lightweight with a package size of less than 60MB, integrating all necessary environments and ready to run after download.
 
-1. 从 [Release](https://github.com/WEIFENG2333/VideoCaptioner/releases) 页面下载最新版本的可执行程序。或者：[蓝奏盘下载](https://wwwm.lanzoue.com/ii14G2pdsbej)
+1. Download the latest version executable from the [Release](https://github.com/WEIFENG2333/VideoCaptioner/releases) page. Or: [LanZou Download](https://wwwm.lanzoue.com/ii14G2pdsbej)
 
-2. 打开安装包进行安装
+2. Open the installer to install
 
-3. LLM API 配置，（用于字幕断句、校正），可使用[本项目的中转站](https://api.videocaptioner.cn)
+3. LLM API configuration (for subtitle segmentation and correction), you can use [this project's relay station](https://api.videocaptioner.cn)
 
-4. 翻译配置，选择是否启用翻译，翻译服务（默认使用微软翻译，质量一般，推荐使用大模型翻译）
+4. Translation configuration, choose whether to enable translation and translation service (default uses Microsoft Translate with average quality, recommend using LLM translation)
 
-5. 语音识别配置（默认使用B接口，中英以外的语言请使用本地转录）
+5. Speech recognition configuration (default uses B interface, use local transcription for languages other than Chinese and English)
 
-6. 拖拽视频文件到软件窗口，即可全自动处理
+6. Drag video files to the software window for fully automatic processing
 
-提示：每一个步骤均支持单独处理，均支持文件拖拽。软件具体模型选择和参数配置说明，请查看下文。
+Tip: Each step supports individual processing and file drag-and-drop. For specific model selection and parameter configuration instructions, please see below.
 
-### macOS / Linux 用户
+### macOS / Linux Users
 
-1. 克隆项目并进入目录
+1. Clone the project and enter the directory
 
 ```bash
 git clone https://github.com/WEIFENG2333/VideoCaptioner.git
 cd VideoCaptioner
 ```
 
-2. 运行启动脚本
+2. Run the startup script
 
 ```bash
 chmod +x run.sh
 ./run.sh
 ```
 
-脚本会自动：
+The script will automatically:
 
-- 检测Python环境
-- 创建虚拟环境并安装Python依赖
-- 检测系统工具（ffmpeg、aria2）
-- 启动应用程序
+- Detect Python environment
+- Create virtual environment and install Python dependencies
+- Detect system tools (ffmpeg, aria2)
+- Start the application
 
-**注意**：macOS用户需要先安装Homebrew，首次运行时可能需要安装Xcode命令行工具。
+**Note**: macOS users need to install Homebrew first, and may need to install Xcode command line tools on first run.
 
 <details>
-<summary>手动安装步骤</summary>
+<summary>Manual Installation Steps</summary>
  
 
-1. 安装 ffmpeg 和 Aria2 下载工具
+1. Install ffmpeg and Aria2 download tools
 
 ```bash
 brew install ffmpeg
@@ -97,14 +97,14 @@ brew install aria2
 brew install python@3.**
 ```
 
-2. 克隆项目
+2. Clone the project
 
 ```bash
 git clone https://github.com/WEIFENG2333/VideoCaptioner.git
 cd VideoCaptioner
 ```
 
-3. 安装依赖
+3. Install dependencies
 
 ```bash
 python3.** -m venv venv
@@ -112,7 +112,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. 运行程序
+4. Run the program
 
 ```bash
 python main.py
@@ -122,217 +122,217 @@ python main.py
 
 
 
-## 基本配置
+## Basic Configuration
 
-### 1. LLM API 配置说明
+### 1. LLM API Configuration
 
-LLM 大模型是用来字幕段句、字幕优化、以及字幕翻译（如果选择了LLM 大模型翻译）。
+LLM large models are used for subtitle segmentation, subtitle optimization, and subtitle translation (if LLM large model translation is selected).
 
-| 配置项         | 说明                                                                                                                                              |
+| Configuration Item | Description                                                                                                                                              |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SiliconCloud   | [SiliconCloud 官网](https://cloud.siliconflow.cn/i/onCHcaDx)配置方法请参考[配置文档](./docs/llm_config.md)<br>该并发较低，建议把线程设置为5以下。 |
-| DeepSeek       | [DeepSeek 官网](https://platform.deepseek.com)，建议使用 `deepseek-v3` 模型，<br>官方网站最近服务好像并不太稳定。                                 |
-| Ollama本地     | [Ollama 官网](https://ollama.com)                                                                                                                 |
-| 内置公益模型   | 内置基础大语言模型（`gpt-4o-mini`）(公益服务不稳定，强烈建议请使用自己的模型API)                                                                  |
-| OpenAI兼容接口 | 如果有其他服务商的API，可直接在软件中填写。base_url 和api_key                                                                                     |
+| SiliconCloud   | [SiliconCloud Official](https://cloud.siliconflow.cn/i/onCHcaDx) Configuration method please refer to [Configuration Documentation](./docs/llm_config.md)<br>Low concurrency, recommend setting threads below 5. |
+| DeepSeek       | [DeepSeek Official](https://platform.deepseek.com), recommend using `deepseek-v3` model,<br>Official website services seem unstable recently.                                 |
+| Ollama Local     | [Ollama Official](https://ollama.com)                                                                                                                 |
+| Built-in Public Model   | Built-in basic large language model (`gpt-4o-mini`) (Public service unstable, strongly recommend using your own model API)                                                                  |
+| OpenAI Compatible Interface | If you have APIs from other service providers, you can directly fill them in the software. base_url and api_key                                                                                     |
 
-注：如果用的 API 服务商不支持高并发，请在软件设置中将“线程数”调低，避免请求错误。
+Note: If the API service provider doesn't support high concurrency, please lower the "Thread Count" in software settings to avoid request errors.
 
 ---
 
-如果希望高并发，或者希望在在软件内使用使用 OpenAI 或者 Claude 等优质大模型进行字幕校正和翻译。
+If you want high concurrency, or want to use high-quality large models like OpenAI or Claude for subtitle correction and translation within the software.
 
-可使用本项目的✨LLM API中转站✨： [https://api.videocaptioner.cn](https://api.videocaptioner.cn)
+You can use this project's ✨LLM API Relay Station✨: [https://api.videocaptioner.cn](https://api.videocaptioner.cn)
 
-其支持高并发，性价比极高，且有国内外大量模型可挑选。
+It supports high concurrency with extremely high cost-effectiveness and offers a wide selection of domestic and international models.
 
-注册获取key之后，设置中按照下面配置：
+After registration and obtaining the key, configure as follows in settings:
 
 BaseURL: `https://api.videocaptioner.cn/v1`
 
-API-key: `个人中心-API 令牌页面自行获取。`
+API-key: `Get from Personal Center - API Token page.`
 
-💡 模型选择建议 (本人在各质量层级中精选出的高性价比模型)：
+💡 Model Selection Recommendations (High cost-effectiveness models I've carefully selected at each quality level):
 
-- 高质量之选： `claude-sonnet-4-20250514` (耗费比例：3)
+- High Quality Choice: `claude-sonnet-4-20250514` (Cost Ratio: 3)
 
-- 较高质量之选： `gpt-5-2025-08-07`、`gemini-2.5-pro` (耗费比例：1.25)
+- Higher Quality Choice: `gpt-5-2025-08-07`, `gemini-2.5-pro` (Cost Ratio: 1.25)
 
-- 中质量之选： `gpt-5-mini`、`gemini-2.5-flash` (耗费比例：0.3)
+- Medium Quality Choice: `gpt-5-mini`, `gemini-2.5-flash` (Cost Ratio: 0.3)
 
-本站支持超高并发，软件中线程数直接拉满即可~ 处理速度非常快~
+This site supports ultra-high concurrency, you can max out the thread count in the software~ Processing speed is very fast~
 
-更详细的API配置教程：[中转站配置配置](./docs/llm_config.md#中转站配置)
+More detailed API configuration tutorial: [Relay Station Configuration](./docs/llm_config.md#中转站配置)
 
 ---
 
-## 2. 翻译配置
+## 2. Translation Configuration
 
-| 配置项         | 说明                                                                                                                          |
+| Configuration Item         | Description                                                                                                                          |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| LLM 大模型翻译 | 🌟 翻译质量最好的选择。使用 AI 大模型进行翻译,能更好理解上下文,翻译更自然。需要在设置中配置 LLM API(比如 OpenAI、DeepSeek 等) |
-| DeepLx 翻译    | 翻译较可靠。基于 DeepL 翻译, 需要要配置自己的后端接口。                                                                       |
-| 微软翻译       | 使用微软的翻译服务, 速度非常快                                                                                                |
-| 谷歌翻译       | 谷歌的翻译服务,速度快,但需要能访问谷歌的网络环境                                                                              |
+| LLM Large Model Translation | 🌟 Best translation quality choice. Uses AI large models for translation, better understanding of context, more natural translation. Requires configuring LLM API in settings (such as OpenAI, DeepSeek, etc.) |
+| DeepLx Translation    | Relatively reliable translation. Based on DeepL translation, requires configuring your own backend interface.                                                                       |
+| Microsoft Translation       | Uses Microsoft's translation service, very fast speed                                                                                                |
+| Google Translation       | Google's translation service, fast speed, but requires network environment that can access Google                                                                              |
 
-推荐使用 `LLM 大模型翻译` ，翻译质量最好。
+Recommend using `LLM Large Model Translation` for the best translation quality.
 
-### 3. 语音识别接口说明
+### 3. Speech Recognition Interface Description
 
-| 接口名称         | 支持语言                                           | 运行方式 | 说明                                                                                                              |
+| Interface Name         | Supported Languages                                           | Running Mode | Description                                                                                                              |
 | ---------------- | -------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| B接口            | 仅支持中文、英文                                   | 在线     | 免费、速度较快                                                                                                    |
-| J接口            | 仅支持中文、英文                                   | 在线     | 免费、速度较快                                                                                                    |
-| WhisperCpp       | 中文、日语、韩语、英文等 99 种语言，外语效果较好   | 本地     | （实际使用不稳定）需要下载转录模型<br>中文建议medium以上模型<br>英文等使用较小模型即可达到不错效果。              |
-| fasterWhisper 👍 | 中文、英文等多99种语言，外语效果优秀，时间轴更准确 | 本地     | （🌟极力推荐🌟）需要下载程序和转录模型<br>支持CUDA,速度更快，转录准确。<br>超级准确的时间戳字幕。<br>建议优先使用 |
+| B Interface            | Chinese and English only                                   | Online     | Free, relatively fast speed                                                                                                    |
+| J Interface            | Chinese and English only                                   | Online     | Free, relatively fast speed                                                                                                    |
+| WhisperCpp       | Chinese, Japanese, Korean, English and 99 other languages, good foreign language effects   | Local     | (Actually unstable in use) Requires downloading transcription models<br>Chinese recommends medium and above models<br>English etc. can achieve good results with smaller models.              |
+| fasterWhisper 👍 | Chinese, English and 99 other languages, excellent foreign language effects, more accurate timeline | Local     | （🌟Highly Recommended🌟）Requires downloading programs and transcription models<br>Supports CUDA, faster speed, accurate transcription.<br>Super accurate timestamp subtitles.<br>Recommend priority use |
 
-### 4. 本地 Whisper 语音识别模型
+### 4. Local Whisper Speech Recognition Models
 
-Whisper 版本有 WhisperCpp 和 fasterWhisper（推荐） 两种，后者效果更好，都需要自行在软件内下载模型。
+Whisper versions include WhisperCpp and fasterWhisper (recommended), with the latter having better effects. Both require downloading models within the software.
 
-| 模型        | 磁盘空间 | 内存占用 | 说明                                |
+| Model        | Disk Space | Memory Usage | Description                                |
 | ----------- | -------- | -------- | ----------------------------------- |
-| Tiny        | 75 MiB   | ~273 MB  | 转录很一般，仅用于测试              |
-| Small       | 466 MiB  | ~852 MB  | 英文识别效果已经不错                |
-| Medium      | 1.5 GiB  | ~2.1 GB  | 中文识别建议至少使用此版本          |
-| Large-v2 👍 | 2.9 GiB  | ~3.9 GB  | 效果好，配置允许情况推荐使用        |
-| Large-v3    | 2.9 GiB  | ~3.9 GB  | 社区反馈可能会出现幻觉/字幕重复问题 |
+| Tiny        | 75 MiB   | ~273 MB  | Transcription is average, only for testing              |
+| Small       | 466 MiB  | ~852 MB  | English recognition effect is already good                |
+| Medium      | 1.5 GiB  | ~2.1 GB  | Chinese recognition recommends using at least this version          |
+| Large-v2 👍 | 2.9 GiB  | ~3.9 GB  | Good effect, recommend use if configuration allows        |
+| Large-v3    | 2.9 GiB  | ~3.9 GB  | Community feedback may have hallucination/subtitle duplication issues |
 
-推荐模型: `Large-v2` 稳定且质量较好。
+Recommended model: `Large-v2` is stable with good quality.
 
-注：以上模型国内网络可直接在软件内下载。
+Note: The above models can be downloaded directly within the software on domestic networks.
 
-### 5. 文稿匹配
+### 5. Manuscript Matching
 
-- 在"字幕优化与翻译"页面，包含"文稿匹配"选项，支持以下**一种或者多种**内容，辅助校正字幕和翻译:
+- In the "Subtitle Optimization and Translation" page, includes "Manuscript Matching" option, supporting the following **one or more** content types to assist subtitle correction and translation:
 
-| 类型       | 说明                                 | 填写示例                                                                                                                                                |
+| Type       | Description                                 | Example                                                                                                                                                |
 | ---------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 术语表     | 专业术语、人名、特定词语的修正对照表 | 机器学习->Machine Learning<br>马斯克->Elon Musk<br>打call -> 应援<br>图灵斑图<br>公交车悖论                                                             |
-| 原字幕文稿 | 视频的原有文稿或相关内容             | 完整的演讲稿、课程讲义等                                                                                                                                |
-| 修正要求   | 内容相关的具体修正要求               | 统一人称代词、规范专业术语等<br>填写**内容相关**的要求即可，[示例参考](https://github.com/WEIFENG2333/VideoCaptioner/issues/59#issuecomment-2495849752) |
+| Glossary     | Professional terms, names, specific word correction reference table | Machine Learning->Machine Learning<br>Musk->Elon Musk<br>打call -> 应援<br>图灵斑图<br>公交车悖论                                                             |
+| Original Manuscript | Original manuscript or related content of the video             | Complete speech drafts, course handouts, etc.                                                                                                                                |
+| Correction Requirements   | Specific correction requirements related to content               | Unify personal pronouns, standardize professional terms, etc.<br>Fill in **content-related** requirements, [Example Reference](https://github.com/WEIFENG2333/VideoCaptioner/issues/59#issuecomment-2495849752) |
 
-- 如果需要文稿进行字幕优化辅助，全流程处理时，先填写文稿信息，再进行开始任务处理
-- 注意: 使用上下文参数量不高的小型LLM模型时，建议控制文稿内容在1千字内，如果使用上下文较大的模型，则可以适当增加文稿内容。
+- If manuscript assistance is needed for subtitle optimization, fill in manuscript information first during full workflow processing, then start task processing
+- Note: When using small LLM models with low context parameters, recommend controlling manuscript content within 1000 characters. If using models with larger context, manuscript content can be appropriately increased.
 
-无特殊需求，一般不填写。
+No special requirements, generally not filled.
 
-### 6. Cookie 配置说明
+### 6. Cookie Configuration
 
-如果使用URL下载功能时，如果遇到以下情况:
+When using URL download functionality, if you encounter the following situations:
 
-1. 下载视频网站需要登录信息才可以下载；
-2. 只能下载较低分辨率的视频；
-3. 网络条件较差时需要验证；
+1. Video websites require login information to download;
+2. Can only download lower resolution videos;
+3. Verification required when network conditions are poor;
 
-- 请参考 [Cookie 配置说明](./docs/get_cookies.md) 获取Cookie信息，并将cookies.txt文件放置到软件安装目录的 `AppData` 目录下，即可正常下载高质量视频。
+- Please refer to [Cookie Configuration Instructions](./docs/get_cookies.md) to obtain Cookie information, and place the cookies.txt file in the `AppData` directory of the software installation directory to download high-quality videos normally.
 
-## 软件流程介绍
+## Software Workflow Introduction
 
-程序简单的处理流程如下:
+The simple processing workflow of the program is as follows:
 
 ```
-语音识别转录 -> 字幕断句(可选) -> 字幕优化翻译(可选) -> 字幕视频合成
+Speech Recognition Transcription -> Subtitle Segmentation (Optional) -> Subtitle Optimization Translation (Optional) -> Subtitle Video Synthesis
 ```
 
-## 软件主要功能
+## Main Software Features
 
-软件利用大语言模型(LLM)在理解上下文方面的优势，对语音识别生成的字幕进一步处理。有效修正错别字、统一专业术语，让字幕内容更加准确连贯，为用户带来出色的观看体验！
+The software leverages the advantages of Large Language Models (LLM) in understanding context to further process subtitles generated from speech recognition. Effectively corrects typos and unifies professional terminology, making subtitle content more accurate and coherent, bringing users an excellent viewing experience!
 
-#### 1. 多平台视频下载与处理
+#### 1. Multi-platform Video Download and Processing
 
-- 支持国内外主流视频平台（B站、Youtube、小红书、TikTok、X、西瓜视频、抖音等）
-- 自动提取视频原有字幕处理
+- Supports mainstream video platforms at home and abroad (Bilibili, YouTube, Xiaohongshu, TikTok, X, Xigua Video, Douyin, etc.)
+- Automatically extracts and processes original video subtitles
 
-#### 2. 专业的语音识别引擎
+#### 2. Professional Speech Recognition Engine
 
-- 提供多种接口在线识别，效果媲美剪映（免费、高速）
-- 支持本地Whisper模型（保护隐私、可离线）
+- Provides multiple interface online recognition with effects comparable to Jianying (free, high-speed)
+- Supports local Whisper models (privacy protection, offline capable)
 
-#### 3. 字幕智能纠错
+#### 3. Intelligent Subtitle Error Correction
 
-- 自动优化专业术语、代码片段和数学公式格式
-- 上下文进行断句优化，提升阅读体验
-- 支持文稿提示，使用原有文稿或者相关提示优化字幕断句
+- Automatically optimizes professional terminology, code snippets and mathematical formula formats
+- Context-based sentence segmentation optimization to improve reading experience
+- Supports manuscript prompts, using original manuscripts or related prompts to optimize subtitle segmentation
 
-#### 4. 高质量字幕翻译
+#### 4. High-quality Subtitle Translation
 
-- 结合上下文的智能翻译，确保译文兼顾全文
-- 通过Prompt指导大模型反思翻译，提升翻译质量
-- 使用序列模糊匹配算法、保证时间轴完全一致
+- Context-aware intelligent translation ensuring translations consider the entire text
+- Uses Prompt guidance for large model reflection translation to improve translation quality
+- Uses sequence fuzzy matching algorithm to ensure complete timeline consistency
 
-#### 5. 字幕样式调整
+#### 5. Subtitle Style Adjustment
 
-- 丰富的字幕样式模板（科普风、新闻风、番剧风等等）
-- 多种格式字幕视频（SRT、ASS、VTT、TXT）
+- Rich subtitle style templates (science popularization style, news style, anime style, etc.)
+- Multiple format subtitle videos (SRT, ASS, VTT, TXT)
 
-针对小白用户，对一些软件内的选项说明：
+For novice users, explanations of some software options:
 
-#### 1. 语音转录页面
+#### 1. Speech Transcription Page
 
-- `VAD过滤`：开启后，VAD（语音活动检测）将过滤无人声的语音片段，从而减少幻觉现象。建议保持默认开启状态。如果不懂，其他VAD选项建议直接保持默认即可。
+- `VAD Filter`: When enabled, VAD (Voice Activity Detection) will filter voice segments without human voice, thereby reducing hallucination phenomena. Recommend keeping default enabled state. If unsure, other VAD options recommend keeping defaults.
 
-- `音频分离`：开启后，使用MDX-Net进行降噪处理，能够有效分离人声和背景音乐，从而提升音频质量。建议只在嘈杂的视频中开启。
+- `Audio Separation`: When enabled, uses MDX-Net for noise reduction processing, effectively separating human voice and background music, thereby improving audio quality. Recommend only enabling in noisy videos.
 
-#### 2. 字幕优化与翻译页面
+#### 2. Subtitle Optimization and Translation Page
 
-- `智能断句`：开启后，全流程处理时生成字级时间戳，然后通过LLM大模型进行断句，从而在视频有更完美的观看体验。有按照句子断句和按照语义断句两种模式。可根据自己的需求配置。
+- `Intelligent Segmentation`: When enabled, generates character-level timestamps during full workflow processing, then uses LLM large models for segmentation, providing a more perfect viewing experience in videos. Has two modes: sentence-based segmentation and semantic-based segmentation. Configure according to your needs.
 
-- `字幕校正`：开启后，会通过LLM大模型对字幕内容进行校正(如：英文单词大小写、标点符号、错别字、数学公式和代码的格式等)，提升字幕的质量。
+- `Subtitle Correction`: When enabled, uses LLM large models to correct subtitle content (such as: English word capitalization, punctuation, typos, mathematical formulas and code formatting, etc.), improving subtitle quality.
 
-- `反思翻译`：开启后，会通过LLM大模型进行反思翻译，提升翻译的质量。相应的会增加请求的时间和消耗的Token。(选项在 设置页-LLM大模型翻译-反思翻译 中开启。)
+- `Reflection Translation`: When enabled, uses LLM large models for reflection translation, improving translation quality. Correspondingly increases request time and token consumption. (Option enabled in Settings Page - LLM Large Model Translation - Reflection Translation.)
 
-- `文稿提示`：填写后，这部分也将作为提示词发送给大模型，辅助字幕优化和翻译。
+- `Manuscript Prompt`: When filled, this part will also be sent as prompts to large models to assist subtitle optimization and translation.
 
-#### 3. 字幕视频合成页面
+#### 3. Subtitle Video Synthesis Page
 
-- `视频合成`：开启后，会根据合成字幕视频；关闭将跳过视频合成的流程。
+- `Video Synthesis`: When enabled, synthesizes subtitle videos; disabling skips the video synthesis process.
 
-- `软字幕`：开启后，字幕不会烧录到视频中，处理速度极快。但是软字幕需要一些播放器（如PotPlayer）支持才可以进行显示播放。而且软字幕的样式不是软件内调整的字幕样式，而是播放器默认的白色样式。
+- `Soft Subtitles`: When enabled, subtitles won't be burned into the video, processing speed is extremely fast. However, soft subtitles require some players (like PotPlayer) support to display and play. Also, soft subtitle styles are not the software-adjusted subtitle styles, but the player's default white style.
 
-项目主要目录结构说明如下：
+Main project directory structure description:
 
 ```
 VideoCaptioner/
-├── runtime/                    # 运行环境目录
-├── resources/                  # 软件资源文件目录（二进制程序、图标等,以及下载的faster-whisper程序）
-├── work-dir/                   # 工作目录，处理完成的视频和字幕文件保存在这里
-├── AppData/                    # 应用数据目录
-    ├── cache/                  # 缓存目录，缓存转录、大模型请求的数据。
-    ├── models/                 # 存放 Whisper 模型文件
-    ├── logs/                   # 日志目录，记录软件运行状态
-    ├── settings.json           # 存储用户设置
-    └──  cookies.txt            # 视频平台的 cookie 信息（下载高清视频时需要）
-└── VideoCaptioner.exe          # 主程序执行文件
+├── runtime/                    # Runtime environment directory
+├── resources/                  # Software resource file directory (binary programs, icons, etc., and downloaded faster-whisper programs)
+├── work-dir/                   # Working directory, processed videos and subtitle files are saved here
+├── AppData/                    # Application data directory
+    ├── cache/                  # Cache directory, caches transcription and large model request data.
+    ├── models/                 # Stores Whisper model files
+    ├── logs/                   # Log directory, records software running status
+    ├── settings.json           # Stores user settings
+    └──  cookies.txt            # Video platform cookie information (required for downloading high-definition videos)
+└── VideoCaptioner.exe          # Main program executable file
 ```
 
-## 📝 说明
+## 📝 Notes
 
-1. 字幕断句的质量对观看体验至关重要。软件能将逐字字幕智能重组为符合自然语言习惯的段落，并与视频画面完美同步。
+1. The quality of subtitle segmentation is crucial to the viewing experience. The software can intelligently reorganize character-by-character subtitles into paragraphs that conform to natural language habits and perfectly synchronize with video frames.
 
-2. 在处理过程中，仅向大语言模型发送文本内容，不包含时间轴信息，这大大降低了处理开销。
+2. During processing, only text content is sent to large language models, without timeline information, which greatly reduces processing overhead.
 
-3. 在翻译环节，我们采用吴恩达提出的"翻译-反思-翻译"方法论。这种迭代优化的方式确保了翻译的准确性。
+3. In the translation process, we adopt Andrew Ng's "translate-reflect-translate" methodology. This iterative optimization approach ensures translation accuracy.
 
-4. 填入 YouTube 链接时进行处理时，会自动下载视频的字幕，从而省去转录步骤，极大地节省操作时间。
+4. When processing YouTube links, video subtitles are automatically downloaded, saving transcription steps and greatly reducing operation time.
 
-## 🤝 贡献指南
+## 🤝 Contributing
 
-项目在不断完善中，如果在使用过程遇到的Bug，欢迎提交 [Issue](https://github.com/WEIFENG2333/VideoCaptioner/issues) 和 Pull Request 帮助改进项目。
+The project is continuously improving. If you encounter bugs during use, please submit [Issues](https://github.com/WEIFENG2333/VideoCaptioner/issues) and Pull Requests to help improve the project.
 
-## 📝 更新日志
+## 📝 Changelog
 
-查看完整的更新历史，请访问 [CHANGELOG.md](./CHANGELOG.md)
+To view the complete update history, please visit [CHANGELOG.md](./CHANGELOG.md)
 
-## 💖 支持作者
+## 💖 Support Author
 
-如果觉得项目对你有帮助，可以给项目点个Star！
+If you find the project helpful, please give it a Star!
 
 <details>
-<summary>捐助支持</summary>
+<summary>Donation Support</summary>
 <div align="center">
-  <img src="./docs/images/alipay.jpg" alt="支付宝二维码" width="30%">
-  <img src="./docs/images/wechat.jpg" alt="微信二维码" width="30%">
+  <img src="./docs/images/alipay.jpg" alt="Alipay QR Code" width="30%">
+  <img src="./docs/images/wechat.jpg" alt="WeChat QR Code" width="30%">
 </div>
 </details>
 

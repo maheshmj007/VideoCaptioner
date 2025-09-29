@@ -41,7 +41,7 @@ logger_instance = setup_logger("VideoCaptioner")
 
 def exception_hook(exctype, value, tb):
     logger_instance.error("".join(traceback.format_exception(exctype, value, tb)))
-    sys.__excepthook__(exctype, value, tb)  # 调用默认的异常处理
+    sys.__excepthook__(exctype, value, tb)  # Call default exception handler
 
 
 sys.excepthook = exception_hook

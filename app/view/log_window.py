@@ -11,7 +11,7 @@ from app.config import LOG_PATH, RESOURCE_PATH
 class LogWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("日志查看器")
+        self.setWindowTitle("Log Viewer")
         self.resize(800, 600)
 
         FluentStyleSheet.FLUENT_WINDOW.apply(self)
@@ -35,7 +35,7 @@ class LogWindow(QWidget):
 
         # 创建顶部按钮布局
         top_layout = QHBoxLayout()
-        self.open_folder_btn = PushButton("打开日志文件夹", self)
+        self.open_folder_btn = PushButton("Open Log Folder", self)
         self.open_folder_btn.clicked.connect(self.open_log_folder)
         top_layout.addWidget(self.open_folder_btn)
         top_layout.addStretch()
@@ -57,10 +57,10 @@ class LogWindow(QWidget):
             self.log_file = open(self.log_path, "r", encoding="utf-8")
             self.load_last_lines(20480)
             self.log_text.moveCursor(QTextCursor.End)
-            self.log_text.insertPlainText(f"\n{'=' * 25}以上是历史日志{'=' * 25}\n\n")
+            self.log_text.insertPlainText(f"\n{'=' * 25}Above are previous logs{'=' * 25}\n\n")
         except Exception as e:
             self.log_file = None
-            self.log_text.setPlainText(f"打开日志文件失败: {str(e)}")
+            self.log_text.setPlainText(f"Failed to open log file: {str(e)}")
 
         # 添加文件大小跟踪
         self.last_position = self.log_file.tell()
@@ -109,7 +109,7 @@ class LogWindow(QWidget):
             )
 
         except Exception as e:
-            self.log_text.setPlainText(f"读取日志文件失败: {str(e)}")
+            self.log_text.setPlainText(f"Failed to read log file: {str(e)}")
 
     # def closeEvent(self, event):
     #     # 关闭窗口时同时关闭文件和定时器
@@ -151,7 +151,7 @@ class LogWindow(QWidget):
                     )
 
         except Exception as e:
-            self.log_text.setPlainText(f"读取日志文件出错: {str(e)}")
+            self.log_text.setPlainText(f"Error reading log file: {str(e)}")
 
     def open_log_folder(self):
         """打开日志文件所在文件夹"""

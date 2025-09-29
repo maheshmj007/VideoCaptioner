@@ -133,13 +133,13 @@ class SubtitleTableModel(QAbstractTableModel):
         if role == Qt.DisplayRole:  # type: ignore
             if orientation == Qt.Horizontal:  # type: ignore
                 return [
-                    self.tr("开始时间"),
-                    self.tr("结束时间"),
-                    self.tr("字幕内容"),
+                    self.tr("Start Time"),
+                    self.tr("End Time"),
+                    self.tr("Subtitle Content"),
                     (
-                        self.tr("翻译字幕")
+                        self.tr("Translated Subtitle")
                         if cfg.need_translate.value
-                        else self.tr("优化字幕")
+                        else self.tr("Optimized Subtitle")
                     ),
                 ][section]
             elif orientation == Qt.Vertical:  # type: ignore
@@ -244,19 +244,19 @@ class SubtitleInterface(QWidget):
             save_menu.addAction(action)
 
         # 添加保存按钮(带下拉菜单)
-        save_button = TransparentDropDownPushButton(self.tr("保存"), self, FIF.SAVE)
+        save_button = TransparentDropDownPushButton(self.tr("Save"), self, FIF.SAVE)
         save_button.setMenu(save_menu)
         save_button.setFixedHeight(34)
         self.command_bar.addWidget(save_button)
 
         # 添加字幕排布下拉按钮
         self.layout_button = TransparentDropDownPushButton(
-            self.tr("字幕排布"), self, FIF.LAYOUT
+            self.tr("Subtitle Layout"), self, FIF.LAYOUT
         )
         self.layout_button.setFixedHeight(34)
         self.layout_button.setMinimumWidth(125)
         self.layout_menu = RoundMenu(parent=self)
-        for layout in ["译文在上", "原文在上", "仅译文", "仅原文"]:
+        for layout in ["Translation on Top", "Original on Top", "Translation Only", "Original Only"]:
             action = Action(text=layout)
             action.triggered.connect(
                 lambda checked,
@@ -273,7 +273,7 @@ class SubtitleInterface(QWidget):
         # 添加字幕优化按钮
         self.optimize_button = Action(
             FIF.EDIT,
-            self.tr("字幕校正"),
+            self.tr("Subtitle Optimization"),
             triggered=self.on_subtitle_optimization_changed,
             checkable=True,
         )
@@ -282,7 +282,7 @@ class SubtitleInterface(QWidget):
         # 添加字幕翻译按钮
         self.translate_button = Action(
             FIF.LANGUAGE,
-            self.tr("字幕翻译"),
+            self.tr("Subtitle Translation"),
             triggered=self.on_subtitle_translation_changed,
             checkable=True,
         )
@@ -290,7 +290,7 @@ class SubtitleInterface(QWidget):
 
         # 添加翻译语言选择
         self.target_language_button = TransparentDropDownPushButton(
-            self.tr("翻译语言"), self, FIF.LANGUAGE
+            self.tr("Target Language"), self, FIF.LANGUAGE
         )
         self.target_language_button.setFixedHeight(34)
         self.target_language_button.setMinimumWidth(125)
@@ -313,7 +313,7 @@ class SubtitleInterface(QWidget):
 
         # 添加文稿提示按钮
         self.prompt_button = Action(
-            FIF.DOCUMENT, self.tr("文稿提示"), triggered=self.show_prompt_dialog
+            FIF.DOCUMENT, self.tr("Prompt"), triggered=self.show_prompt_dialog
         )
         self.command_bar.addAction(self.prompt_button)
 
@@ -338,7 +338,7 @@ class SubtitleInterface(QWidget):
         )
 
         # 添加开始按钮到水平布局
-        self.start_button = PrimaryPushButton(self.tr("开始"), self, icon=FIF.PLAY)
+        self.start_button = PrimaryPushButton(self.tr("Start"), self, icon=FIF.PLAY)
         self.start_button.clicked.connect(
             lambda: self.start_subtitle_optimization(need_create_task=True)
         )
@@ -384,12 +384,12 @@ class SubtitleInterface(QWidget):
     def _setup_bottom_layout(self):
         self.bottom_layout = QHBoxLayout()
         self.progress_bar = ProgressBar(self)
-        self.status_label = BodyLabel(self.tr("请拖入字幕文件"), self)
+        self.status_label = BodyLabel(self.tr("Please drag and drop a subtitle file"), self)
         self.status_label.setMinimumWidth(100)
         self.status_label.setAlignment(Qt.AlignCenter)  # type: ignore
 
         # 添加取消按钮
-        self.cancel_button = PushButton(self.tr("取消"), self, icon=FIF.CANCEL)
+        self.cancel_button = PushButton(self.tr("Cancel"), self, icon=FIF.CANCEL)
         self.cancel_button.hide()  # 初始隐藏
         self.cancel_button.clicked.connect(self.cancel_optimization)
 
@@ -491,8 +491,8 @@ class SubtitleInterface(QWidget):
         if self.task and self.task.need_next_task:
             self.finished.emit(video_path, output_path)
         InfoBar.success(
-            self.tr("优化完成"),
-            self.tr("优化完成字幕..."),
+            self.tr("Optimization Completed"),
+            self.tr("Subtitle optimization completed..."),
             duration=3000,
             position=InfoBarPosition.BOTTOM,
             parent=self.parent(),
@@ -502,7 +502,7 @@ class SubtitleInterface(QWidget):
         self.start_button.setEnabled(True)
         self.cancel_button.hide()  # 隐藏取消按钮
         self.progress_bar.error()
-        InfoBar.error(self.tr("优化失败"), self.tr(error), duration=20000, parent=self)
+        InfoBar.error(self.tr("Optimization Failed"), self.tr(error), duration=20000, parent=self)
 
     def on_subtitle_optimization_progress(self, value: int, status: str) -> None:
         self.progress_bar.setValue(value)
@@ -529,10 +529,10 @@ class SubtitleInterface(QWidget):
         subtitle_formats = " ".join(
             f"*.{fmt.value}" for fmt in SupportedSubtitleFormats
         )
-        filter_str = f"{self.tr('字幕文件')} ({subtitle_formats})"
+        filter_str = f"{self.tr('Subtitle Files')} ({subtitle_formats})"
 
         file_path, _ = QFileDialog.getOpenFileName(
-            self, self.tr("选择字幕文件"), "", filter_str
+            self, self.tr("Select Subtitle File"), "", filter_str
         )
         if file_path:
             self.subtitle_path = file_path
@@ -542,7 +542,7 @@ class SubtitleInterface(QWidget):
         """处理保存格式的选择"""
         if not self.subtitle_path:
             InfoBar.warning(
-                self.tr("警告"), self.tr("请先加载字幕文件"), duration=3000, parent=self
+                self.tr("Warning"), self.tr("Please load a subtitle file first"), duration=3000, parent=self
             )
             return
 
@@ -550,9 +550,9 @@ class SubtitleInterface(QWidget):
         default_name = Path(self.subtitle_path).stem
         file_path, _ = QFileDialog.getSaveFileName(
             self,
-            self.tr("保存字幕文件"),
+            self.tr("Save Subtitle File"),
             default_name,  # 使用原文件名作为默认名
-            f"{self.tr('字幕文件')} (*.{format})",
+            f"{self.tr('Subtitle Files')} (*.{format})",
         )
         if not file_path:
             return
@@ -568,15 +568,15 @@ class SubtitleInterface(QWidget):
             else:
                 asr_data.save(file_path, layout=layout)
             InfoBar.success(
-                self.tr("保存成功"),
-                self.tr("字幕已保存至:") + file_path,
+                self.tr("Save Successful"),
+                self.tr("Subtitles saved to: ") + file_path,
                 duration=3000,
                 parent=self,
             )
         except Exception as e:
             InfoBar.error(
-                self.tr("保存失败"),
-                self.tr("保存字幕文件失败: ") + str(e),
+                self.tr("Save Failed"),
+                self.tr("Failed to save subtitle file: ") + str(e),
                 duration=5000,
                 parent=self,
             )
@@ -585,7 +585,7 @@ class SubtitleInterface(QWidget):
         """打开文件夹按钮点击事件"""
         if not self.task:
             InfoBar.warning(
-                self.tr("警告"), self.tr("请先加载字幕文件"), duration=3000, parent=self
+                self.tr("Warning"), self.tr("Please load a subtitle file first"), duration=3000, parent=self
             )
             return
         if not self.task:
@@ -606,7 +606,7 @@ class SubtitleInterface(QWidget):
         asr_data = ASRData.from_subtitle_file(file_path)
         self.model._data = asr_data.to_json()
         self.model.layoutChanged.emit()
-        self.status_label.setText(self.tr("已加载文件"))
+        self.status_label.setText(self.tr("File Loaded"))
 
     def dragEnterEvent(self, event: QDragEnterEvent) -> None:
         event.accept() if event.mimeData().hasUrls() else event.ignore()
@@ -626,8 +626,8 @@ class SubtitleInterface(QWidget):
             if is_supported:
                 self.load_subtitle_file(file_path)
                 InfoBar.success(
-                    self.tr("导入成功"),
-                    self.tr("成功导入") + os.path.basename(file_path),
+                    self.tr("Import Successful"),
+                    self.tr("Successfully imported ") + os.path.basename(file_path),
                     duration=3000,
                     position=InfoBarPosition.BOTTOM,
                     parent=self,
@@ -635,8 +635,8 @@ class SubtitleInterface(QWidget):
                 break
             else:
                 InfoBar.error(
-                    self.tr("格式错误") + file_ext,
-                    self.tr("支持的字幕格式:") + str(supported_formats),
+                    self.tr("Format Error: ") + file_ext,
+                    self.tr("Supported subtitle formats: ") + str(supported_formats),
                     duration=3000,
                     parent=self,
                 )
@@ -720,7 +720,7 @@ class SubtitleInterface(QWidget):
 
         # 添加菜单项
         # retranslate_action = Action(FIF.SYNC, self.tr("重新翻译"))
-        merge_action = Action(FIF.LINK, self.tr("合并"))  # 添加快捷键提示
+        merge_action = Action(FIF.LINK, self.tr("Merge"))  # 添加快捷键提示
         # menu.addAction(retranslate_action)
         menu.addAction(merge_action)
         merge_action.setShortcut("Ctrl+M")  # 设置快捷键
@@ -793,8 +793,8 @@ class SubtitleInterface(QWidget):
 
         # 显示成功提示
         InfoBar.success(
-            self.tr("合并成功"),
-            self.tr("已成功合并选中的字幕行"),
+            self.tr("Merge Successful"),
+            self.tr("Successfully merged selected subtitle rows"),
             duration=1000,
             parent=self,
         )
@@ -819,9 +819,9 @@ class SubtitleInterface(QWidget):
             self.start_button.setEnabled(True)
             self.cancel_button.hide()
             self.progress_bar.setValue(0)
-            self.status_label.setText(self.tr("已取消校正"))
+            self.status_label.setText(self.tr("Optimization Cancelled"))
             InfoBar.warning(
-                self.tr("已取消"), self.tr("字幕校正已取消"), duration=3000, parent=self
+                self.tr("Cancelled"), self.tr("Subtitle optimization cancelled"), duration=3000, parent=self
             )
 
     def on_target_language_changed(self, language: str) -> None:
@@ -854,26 +854,26 @@ class PromptDialog(MessageBoxBase):
     def __init__(self, parent: Optional[QWidget] = None):
         super().__init__(parent)
         self.setup_ui()
-        self.setWindowTitle(self.tr("文稿提示"))
+        self.setWindowTitle(self.tr("Prompt"))
         # 连接按钮点击事件
         self.yesButton.clicked.connect(self.save_prompt)
 
     def setup_ui(self) -> None:
-        self.titleLabel = BodyLabel(self.tr("文稿提示"), self)
+        self.titleLabel = BodyLabel(self.tr("Prompt"), self)
 
         # 添加文本编辑框
         self.text_edit = TextEdit(self)
         self.text_edit.setPlaceholderText(
             self.tr(
-                "请输入文稿提示（辅助校正字幕和翻译）\n\n"
-                "支持以下内容:\n"
-                "1. 术语表 - 专业术语、人名、特定词语的修正对照表\n"
-                "示例:\n机器学习->Machine Learning\n马斯克->Elon Musk\n打call->应援\n\n"
-                "2. 原字幕文稿 - 视频的原有文稿或相关内容\n"
-                "示例: 完整的演讲稿、课程讲义等\n\n"
-                "3. 修正要求 - 内容相关的具体修正要求\n"
-                "示例: 统一人称代词、规范专业术语等\n\n"
-                "注意: 使用小型LLM模型时建议控制文稿在1千字内。对于不同字幕文件,请使用与该字幕相关的文稿提示。"
+                "Enter a prompt to assist subtitle correction and translation.\n\n"
+                "Supported content:\n"
+                "1. Glossary — corrections for terms, names, and specific words\n"
+                "Examples:\nML -> Machine Learning\nElon Musk -> Elon Musk\nCheer -> Support\n\n"
+                "2. Original subtitle script — existing script or related content\n"
+                "Examples: full speech transcript, course notes, etc.\n\n"
+                "3. Correction requirements — specific editing guidelines\n"
+                "Examples: unify pronouns, standardize technical terms, etc.\n\n"
+                "Note: With small LLM models, keep the prompt within 1000 characters. Use a prompt relevant to the specific subtitle file."
             )
         )
         self.text_edit.setText(cfg.custom_prompt_text.value)
@@ -887,8 +887,8 @@ class PromptDialog(MessageBoxBase):
         self.viewLayout.setSpacing(10)
 
         # 设置按钮文本
-        self.yesButton.setText(self.tr("确定"))
-        self.cancelButton.setText(self.tr("取消"))
+        self.yesButton.setText(self.tr("OK"))
+        self.cancelButton.setText(self.tr("Cancel"))
 
     def get_prompt(self) -> str:
         return self.text_edit.toPlainText()

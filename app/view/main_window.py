@@ -29,42 +29,42 @@ class MainWindow(FluentWindow):
         super().__init__()
         self.initWindow()
 
-        # 创建子界面
+        # Create sub-interfaces
         self.homeInterface = HomeInterface(self)
         self.settingInterface = SettingInterface(self)
         self.subtitleStyleInterface = SubtitleStyleInterface(self)
         self.batchProcessInterface = BatchProcessInterface(self)
 
-        # 初始化版本管理器
+        # Initialize version manager
         self.versionManager = VersionManager()
         self.versionManager.newVersionAvailable.connect(self.onNewVersion)
         self.versionManager.announcementAvailable.connect(self.onAnnouncement)
 
-        # 创建版本检查线程
+        # Create version check thread
         self.versionThread = QThread()
         self.versionManager.moveToThread(self.versionThread)
         self.versionThread.started.connect(self.versionManager.performCheck)
         self.versionThread.start()
 
-        # 初始化导航界面
+        # Initialize navigation interface
         self.initNavigation()
         self.splashScreen.finish()
 
-        # 注册退出处理， 清理进程
+        # Register exit handler, cleanup processes
         import atexit
 
         atexit.register(self.stop)
 
     def initNavigation(self):
-        """初始化导航栏"""
-        # 添加导航项
-        self.addSubInterface(self.homeInterface, FIF.HOME, self.tr("主页"))
-        self.addSubInterface(self.batchProcessInterface, FIF.VIDEO, self.tr("批量处理"))
-        self.addSubInterface(self.subtitleStyleInterface, FIF.FONT, self.tr("字幕样式"))
+        """Initialize navigation bar"""
+        # Add navigation items
+        self.addSubInterface(self.homeInterface, FIF.HOME, self.tr("Home"))
+        self.addSubInterface(self.batchProcessInterface, FIF.VIDEO, self.tr("Batch Processing"))
+        self.addSubInterface(self.subtitleStyleInterface, FIF.FONT, self.tr("Subtitle Style"))
 
         self.navigationInterface.addSeparator()
 
-        # 在底部添加自定义小部件
+        # Add custom widgets at the bottom
         self.navigationInterface.addItem(
             routeKey="avatar",
             text="GitHub",
@@ -79,31 +79,31 @@ class MainWindow(FluentWindow):
             NavigationItemPosition.BOTTOM,
         )
 
-        # 设置默认界面
+        # Set default interface
         self.switchTo(self.homeInterface)
 
     def switchTo(self, interface):
         if interface.windowTitle():
             self.setWindowTitle(interface.windowTitle())
         else:
-            self.setWindowTitle(self.tr("卡卡字幕助手 -- VideoCaptioner"))
+            self.setWindowTitle(self.tr("Kaka Subtitle Assistant -- VideoCaptioner"))
         self.stackedWidget.setCurrentWidget(interface, popOut=False)
 
     def initWindow(self):
-        """初始化窗口"""
+        """Initialize window"""
         self.resize(1050, 800)
         self.setMinimumWidth(700)
         self.setWindowIcon(QIcon(str(LOGO_PATH)))
-        self.setWindowTitle(self.tr("卡卡字幕助手 -- VideoCaptioner"))
+        self.setWindowTitle(self.tr("Kaka Subtitle Assistant -- VideoCaptioner"))
 
         self.setMicaEffectEnabled(cfg.get(cfg.micaEnabled))
 
-        # 创建启动画面
+        # Create splash screen
         self.splashScreen = SplashScreen(self.windowIcon(), self)
         self.splashScreen.setIconSize(QSize(106, 106))
         self.splashScreen.raise_()
 
-        # 设置窗口位置, 居中
+        # Set window position, center
         desktop = QApplication.desktop().availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
@@ -112,39 +112,39 @@ class MainWindow(FluentWindow):
         QApplication.processEvents()
 
     def onGithubDialog(self):
-        """打开GitHub"""
+        """Open GitHub"""
         w = MessageBox(
-            self.tr("GitHub信息"),
+            self.tr("GitHub Information"),
             self.tr(
-                "VideoCaptioner 由本人在课余时间独立开发完成，目前托管在GitHub上，欢迎Star和Fork。项目诚然还有很多地方需要完善，遇到软件的问题或者BUG欢迎提交Issue。\n\n https://github.com/WEIFENG2333/VideoCaptioner"
+                "VideoCaptioner was independently developed by me in my spare time and is currently hosted on GitHub. Stars and Forks are welcome. The project indeed has many areas that need improvement. If you encounter software issues or bugs, please submit Issues.\n\n https://github.com/WEIFENG2333/VideoCaptioner"
             ),
             self,
         )
-        w.yesButton.setText(self.tr("打开 GitHub"))
-        w.cancelButton.setText(self.tr("支持作者"))
+        w.yesButton.setText(self.tr("Open GitHub"))
+        w.cancelButton.setText(self.tr("Support Author"))
         if w.exec():
             QDesktopServices.openUrl(QUrl(GITHUB_REPO_URL))
         else:
-            # 点击"支持作者"按钮时打开捐赠对话框
+            # Open donation dialog when clicking "Support Author" button
             donate_dialog = DonateDialog(self)
             donate_dialog.exec_()
 
     def onNewVersion(self, version, force_update, update_info, download_url):
-        """新版本提示"""
-        title = "发现新版本" if not force_update else "当前版本已停用"
-        content = f"发现新版本 {version}\n\n{update_info}"
+        """New version prompt"""
+        title = "New Version Found" if not force_update else "Current Version Discontinued"
+        content = f"New version found {version}\n\n{update_info}"
         w = MessageBox(title, content, self)
-        w.yesButton.setText("立即更新")
-        w.cancelButton.setText("稍后再说" if not force_update else "退出程序")
+        w.yesButton.setText("Update Now")
+        w.cancelButton.setText("Later" if not force_update else "Exit Program")
         if w.exec():
             QDesktopServices.openUrl(QUrl(download_url))
         if force_update:
             QApplication.quit()
 
     def onAnnouncement(self, content):
-        """显示公告"""
-        w = MessageBox("公告", content, self)
-        w.yesButton.setText("我知道了")
+        """Show announcement"""
+        w = MessageBox("Announcement", content, self)
+        w.yesButton.setText("I Understand")
         w.cancelButton.hide()
         w.exec()
 
@@ -154,22 +154,22 @@ class MainWindow(FluentWindow):
             self.splashScreen.resize(self.size())
 
     def closeEvent(self, event):
-        # 关闭所有子界面
+        # Close all sub-interfaces
         # self.homeInterface.close()
         # self.batchProcessInterface.close()
         # self.subtitleStyleInterface.close()
         # self.settingInterface.close()
         super().closeEvent(event)
 
-        # 强制退出应用程序
+        # Force exit application
         QApplication.quit()
 
-        # 确保所有线程和进程都被终止 要是一些错误退出就不会处理了。
+        # Ensure all threads and processes are terminated. Some error exits won't be handled.
         # import os
         # os._exit(0)
 
     def stop(self):
-        # 找到 FFmpeg 进程并关闭
+        # Find FFmpeg processes and close them
         process = psutil.Process(os.getpid())
         for child in process.children(recursive=True):
             child.kill()

@@ -6,7 +6,7 @@
     <message>
         <location filename="../../app/view/batch_process_interface.py" line="47"/>
         <source>批量处理</source>
-        <translation></translation>
+        <translation>Batch Processing</translation>
     </message>
 </context>
 <context>
@@ -14,33 +14,34 @@
     <message>
         <location filename="../../app/components/DonateDialog.py" line="19"/>
         <source>支持作者</source>
-        <translation type="unfinished"></translation>
+        <translation>Support Author</translation>
     </message>
     <message>
         <location filename="../../app/components/DonateDialog.py" line="23"/>
         <source>感谢支持</source>
-        <translation type="unfinished"></translation>
+        <translation>Thank you for your support</translation>
     </message>
     <message>
         <location filename="../../app/components/DonateDialog.py" line="26"/>
         <source>目前本人精力有限，您的支持让我有动力继续折腾这个项目！
 感谢您对开源事业的热爱与支持！</source>
-        <translation type="unfinished"></translation>
+        <translation>Currently, my energy is limited, and your support motivates me to continue working on this project!
+Thank you for your love and support for the open source cause!</translation>
     </message>
     <message>
         <location filename="../../app/components/DonateDialog.py" line="45"/>
         <source>支付宝</source>
-        <translation type="unfinished"></translation>
+        <translation>Alipay</translation>
     </message>
     <message>
         <location filename="../../app/components/DonateDialog.py" line="58"/>
         <source>微信</source>
-        <translation type="unfinished"></translation>
+        <translation>WeChat</translation>
     </message>
     <message>
         <location filename="../../app/components/DonateDialog.py" line="81"/>
         <source>关闭</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
 </context>
 <context>
@@ -48,7 +49,7 @@
     <message>
         <location filename="../../app/components/WhisperCppSettingWidget.py" line="144"/>
         <source>下载模型</source>
-        <translation></translation>
+        <translation>Download Model</translation>
     </message>
     <message>
         <location filename="../../app/components/WhisperCppSettingWidget.py" line="164"/>

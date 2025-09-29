@@ -34,7 +34,7 @@ from ..core.entities import (
 
 
 class Language(Enum):
-    """软件语言"""
+    """Software language"""
 
     CHINESE_SIMPLIFIED = QLocale(QLocale.Chinese, QLocale.China)
     CHINESE_TRADITIONAL = QLocale(QLocale.Chinese, QLocale.HongKong)
@@ -43,12 +43,12 @@ class Language(Enum):
 
 
 class SubtitleLayoutEnum(Enum):
-    """字幕布局"""
+    """Subtitle layout"""
 
-    TRANSLATE_ON_TOP = "译文在上"
-    ORIGINAL_ON_TOP = "原文在上"
-    ONLY_ORIGINAL = "仅原文"
-    ONLY_TRANSLATE = "仅译文"
+    TRANSLATE_ON_TOP = "Translation on top"
+    ORIGINAL_ON_TOP = "Original on top"
+    ONLY_ORIGINAL = "Original only"
+    ONLY_TRANSLATE = "Translation only"
 
 
 class LanguageSerializer(ConfigSerializer):
@@ -62,9 +62,9 @@ class LanguageSerializer(ConfigSerializer):
 
 
 class Config(QConfig):
-    """应用配置"""
+    """Application configuration"""
 
-    # LLM配置
+    # LLM configuration
     llm_service = OptionsConfigItem(
         "LLM",
         "LLMService",
@@ -113,14 +113,14 @@ class Config(QConfig):
         "LLM", "ChatGLM_API_Base", "https://open.bigmodel.cn/api/paas/v4"
     )
 
-    # 公益模型
+    # Public model
     public_model = ConfigItem("LLM", "Public_Model", "gpt-4o-mini")
     public_api_key = ConfigItem(
         "LLM", "Public_API_Key", "please-do-not-use-for-personal-purposes"
     )
     public_api_base = ConfigItem("LLM", "Public_API_Base", "https://ddg.bkfeng.top/v1")
 
-    # ------------------- 翻译配置 -------------------
+    # ------------------- Translation configuration -------------------
     translator_service = OptionsConfigItem(
         "Translate",
         "TranslatorServiceEnum",
@@ -135,7 +135,7 @@ class Config(QConfig):
     batch_size = RangeConfigItem("Translate", "BatchSize", 10, RangeValidator(5, 30))
     thread_num = RangeConfigItem("Translate", "ThreadNum", 10, RangeValidator(1, 100))
 
-    # ------------------- 转录配置 -------------------
+    # ------------------- Transcription configuration -------------------
     transcribe_model = OptionsConfigItem(
         "Transcribe",
         "TranscribeModel",
@@ -152,7 +152,7 @@ class Config(QConfig):
         EnumSerializer(TranscribeLanguageEnum),
     )
 
-    # ------------------- Whisper Cpp 配置 -------------------
+    # ------------------- Whisper Cpp configuration -------------------
     whisper_model = OptionsConfigItem(
         "Whisper",
         "WhisperModel",
@@ -161,7 +161,7 @@ class Config(QConfig):
         EnumSerializer(WhisperModelEnum),
     )
 
-    # ------------------- Faster Whisper 配置 -------------------
+    # ------------------- Faster Whisper configuration -------------------
     faster_whisper_program = ConfigItem(
         "FasterWhisper",
         "Program",
@@ -178,7 +178,7 @@ class Config(QConfig):
     faster_whisper_device = OptionsConfigItem(
         "FasterWhisper", "Device", "cuda", OptionsValidator(["cuda", "cpu"])
     )
-    # VAD 参数
+    # VAD parameters
     faster_whisper_vad_filter = ConfigItem(
         "FasterWhisper", "VadFilter", True, BoolValidator()
     )
@@ -192,24 +192,24 @@ class Config(QConfig):
         OptionsValidator(VadMethodEnum),
         EnumSerializer(VadMethodEnum),
     )
-    # 人声提取
+    # Voice extraction
     faster_whisper_ff_mdx_kim2 = ConfigItem(
         "FasterWhisper", "FfMdxKim2", False, BoolValidator()
     )
-    # 文本处理参数
+    # Text processing parameters
     faster_whisper_one_word = ConfigItem(
         "FasterWhisper", "OneWord", True, BoolValidator()
     )
-    # 提示词
+    # Prompt
     faster_whisper_prompt = ConfigItem("FasterWhisper", "Prompt", "")
 
-    # ------------------- Whisper API 配置 -------------------
+    # ------------------- Whisper API configuration -------------------
     whisper_api_base = ConfigItem("WhisperAPI", "WhisperApiBase", "")
     whisper_api_key = ConfigItem("WhisperAPI", "WhisperApiKey", "")
     whisper_api_model = OptionsConfigItem("WhisperAPI", "WhisperApiModel", "")
     whisper_api_prompt = ConfigItem("WhisperAPI", "WhisperApiPrompt", "")
 
-    # ------------------- 字幕配置 -------------------
+    # ------------------- Subtitle configuration -------------------
     need_optimize = ConfigItem("Subtitle", "NeedOptimize", False, BoolValidator())
     need_translate = ConfigItem("Subtitle", "NeedTranslate", False, BoolValidator())
     need_split = ConfigItem("Subtitle", "NeedSplit", False, BoolValidator())
@@ -238,19 +238,19 @@ class Config(QConfig):
     )
     custom_prompt_text = ConfigItem("Subtitle", "CustomPromptText", "")
 
-    # ------------------- 字幕合成配置 -------------------
+    # ------------------- Subtitle synthesis configuration -------------------
     soft_subtitle = ConfigItem("Video", "SoftSubtitle", False, BoolValidator())
     need_video = ConfigItem("Video", "NeedVideo", True, BoolValidator())
 
-    # ------------------- 字幕样式配置 -------------------
+    # ------------------- Subtitle style configuration -------------------
     subtitle_style_name = ConfigItem("SubtitleStyle", "StyleName", "default")
-    subtitle_layout = ConfigItem("SubtitleStyle", "Layout", "译文在上")
+    subtitle_layout = ConfigItem("SubtitleStyle", "Layout", "Translation on top")
     subtitle_preview_image = ConfigItem("SubtitleStyle", "PreviewImage", "")
 
-    # ------------------- 保存配置 -------------------
+    # ------------------- Save configuration -------------------
     work_dir = ConfigItem("Save", "Work_Dir", WORK_PATH, FolderValidator())
 
-    # ------------------- 软件页面配置 -------------------
+    # ------------------- Software interface configuration -------------------
     micaEnabled = ConfigItem("MainWindow", "MicaEnabled", False, BoolValidator())
     dpiScale = OptionsConfigItem(
         "MainWindow",
@@ -268,7 +268,7 @@ class Config(QConfig):
         restart=True,
     )
 
-    # ------------------- 更新配置 -------------------
+    # ------------------- Update configuration -------------------
     checkUpdateAtStartUp = ConfigItem(
         "Update", "CheckUpdateAtStartUp", True, BoolValidator()
     )

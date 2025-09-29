@@ -89,7 +89,7 @@ class TaskCreationInterface(QWidget):
         self.search_layout = QHBoxLayout()
         self.search_layout.setContentsMargins(80, 0, 80, 0)
         self.search_input = LineEdit(self)
-        self.search_input.setPlaceholderText(self.tr("请拖拽文件或输入视频URL"))
+        self.search_input.setPlaceholderText(self.tr("Please drag and drop a file or enter a video URL"))
         self.search_input.setFixedHeight(40)
         self.search_input.setClearButtonEnabled(True)
         self.search_input.focusOutEvent = lambda e: super(
@@ -140,7 +140,7 @@ class TaskCreationInterface(QWidget):
         self.status_layout = QVBoxLayout()
         self.status_layout.setContentsMargins(50, 0, 30, 5)
         self.status_layout.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)  # type: ignore
-        self.status_label = BodyLabel(self.tr("准备就绪"), self)
+        self.status_label = BodyLabel(self.tr("Ready"), self)
         self.status_label.setStyleSheet("font-size: 14px; color: #888888;")
         self.status_layout.addWidget(self.status_label, 0, Qt.AlignCenter)  # type: ignore
         self.progress_bar = ProgressBar(self)
@@ -159,7 +159,7 @@ class TaskCreationInterface(QWidget):
         bottom_layout.setContentsMargins(0, 0, 0, 0)
 
         # 创建日志按钮
-        self.log_button = HyperlinkButton(url="", text=self.tr("查看日志"), parent=self)
+        self.log_button = HyperlinkButton(url="", text=self.tr("View Logs"), parent=self)
         self.log_button.setStyleSheet(
             self.log_button.styleSheet()
             + """
@@ -172,7 +172,7 @@ class TaskCreationInterface(QWidget):
         )
 
         # 创建捐助按钮
-        self.donate_button = HyperlinkButton(url="", text=self.tr("捐助"), parent=self)
+        self.donate_button = HyperlinkButton(url="", text=self.tr("Donate"), parent=self)
         self.donate_button.setStyleSheet(
             self.donate_button.styleSheet()
             + """
@@ -213,8 +213,8 @@ class TaskCreationInterface(QWidget):
         current_service = cfg.llm_service.value
         if current_service == LLMServiceEnum.PUBLIC:
             InfoBar.warning(
-                self.tr("警告"),
-                self.tr("为确保字幕修正的准确性，建议到设置中配置自己的API"),
+                self.tr("Warning"),
+                self.tr("To ensure accurate subtitle correction, configure your own API in Settings"),
                 duration=6000,
                 parent=self,
                 position=InfoBarPosition.BOTTOM_RIGHT,
@@ -230,10 +230,10 @@ class TaskCreationInterface(QWidget):
             # 构建文件过滤器
             video_formats = " ".join(f"*.{fmt.value}" for fmt in SupportedVideoFormats)
             audio_formats = " ".join(f"*.{fmt.value}" for fmt in SupportedAudioFormats)
-            filter_str = f"{self.tr('媒体文件')} ({video_formats} {audio_formats});;{self.tr('视频文件')} ({video_formats});;{self.tr('音频文件')} ({audio_formats})"
+            filter_str = f"{self.tr('Media Files')} ({video_formats} {audio_formats});;{self.tr('Video Files')} ({video_formats});;{self.tr('Audio Files')} ({audio_formats})"
 
             file_path, _ = file_dialog.getOpenFileName(
-                self, self.tr("选择媒体文件"), desktop_path, filter_str
+                self, self.tr("Select Media File"), desktop_path, filter_str
             )
             if file_path:
                 self.search_input.setText(file_path)
@@ -266,18 +266,18 @@ class TaskCreationInterface(QWidget):
 
             if is_supported:
                 self.search_input.setText(file_path)
-                self.status_label.setText(self.tr("导入成功"))
+                self.status_label.setText(self.tr("Import Successful"))
                 InfoBar.success(
-                    self.tr("导入成功"),
-                    self.tr("导入媒体文件成功"),
+                    self.tr("Import Successful"),
+                    self.tr("Media file imported successfully"),
                     duration=1500,
                     parent=self,
                 )
                 break
             else:
                 InfoBar.error(
-                    self.tr("格式错误") + file_ext,
-                    self.tr("不支持该文件格式"),
+                    self.tr("Format Error: ") + file_ext,
+                    self.tr("Unsupported file format"),
                     duration=3000,
                     parent=self,
                 )
@@ -290,8 +290,8 @@ class TaskCreationInterface(QWidget):
             self._process_url(search_input)
         else:
             InfoBar.error(
-                self.tr("错误"),
-                self.tr("请输入有效的文件路径或视频URL"),
+                self.tr("Error"),
+                self.tr("Please enter a valid file path or video URL"),
                 duration=3000,
                 parent=self,
             )
@@ -311,8 +311,8 @@ class TaskCreationInterface(QWidget):
         cookiefile_path = APPDATA_PATH / "cookies.txt"
         if not cookiefile_path.exists():
             InfoBar.warning(
-                self.tr("警告"),
-                self.tr("建议根据文档配置cookies.txt文件，以可以下载高清视频"),
+                self.tr("Warning"),
+                self.tr("We recommend configuring cookies.txt according to the documentation to download HD videos"),
                 duration=5000,
                 parent=self,
             )
@@ -325,7 +325,7 @@ class TaskCreationInterface(QWidget):
         self.video_download_thread.start()
 
         InfoBar.info(
-            self.tr("开始下载"), self.tr("开始下载视频..."), duration=3000, parent=self
+            self.tr("Starting Download"), self.tr("Starting video download..."), duration=3000, parent=self
         )
 
     def on_video_download_finished(self, video_file_path):
@@ -333,15 +333,15 @@ class TaskCreationInterface(QWidget):
         if video_file_path:
             self.finished.emit(video_file_path)
             InfoBar.success(
-                self.tr("下载成功"),
-                self.tr("视频下载完成，开始自动处理..."),
+                self.tr("Download Successful"),
+                self.tr("Video download completed; starting automatic processing..."),
                 duration=2000,
                 position=InfoBarPosition.BOTTOM,
                 parent=self.parent(),
             )
         else:
             InfoBar.error(
-                self.tr("错误"), self.tr("视频下载失败"), duration=3000, parent=self
+                self.tr("Error"), self.tr("Video download failed"), duration=3000, parent=self
             )
 
     def on_create_task_progress(self, value, status):
@@ -351,7 +351,7 @@ class TaskCreationInterface(QWidget):
         self.status_label.setText(status)
 
     def on_create_task_error(self, error):
-        InfoBar.error(self.tr("错误"), self.tr(error), duration=5000, parent=self)
+        InfoBar.error(self.tr("Error"), self.tr(error), duration=5000, parent=self)
 
     def set_task(self, task):
         self.task = task
@@ -379,8 +379,8 @@ class TaskCreationInterface(QWidget):
             self._process_url(search_input)
         else:
             InfoBar.error(
-                self.tr("错误"),
-                self.tr("请输入音视频文件路径或URL"),
+                self.tr("Error"),
+                self.tr("Please enter an audio or video file path or URL"),
                 duration=3000,
                 parent=self,
             )

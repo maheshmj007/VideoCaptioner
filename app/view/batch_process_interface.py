@@ -43,7 +43,7 @@ class BatchProcessInterface(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.setObjectName("batchProcessInterface")
-        self.setWindowTitle(self.tr("批量处理"))
+        self.setWindowTitle(self.tr("Batch Processing"))
         self.setAcceptDrops(True)
         self.batch_thread = BatchProcessThread()
 
@@ -66,9 +66,9 @@ class BatchProcessInterface(QWidget):
         self.task_type_combo.setCurrentText(str(BatchTaskType.FULL_PROCESS))
 
         # 控制按钮
-        self.add_file_btn = PushButton("添加文件", icon=FIF.ADD)
-        self.start_all_btn = PushButton("开始处理", icon=FIF.PLAY)
-        self.clear_btn = PushButton("清空列表", icon=FIF.DELETE)
+        self.add_file_btn = PushButton("Add Files", icon=FIF.ADD)
+        self.start_all_btn = PushButton("Start Processing", icon=FIF.PLAY)
+        self.clear_btn = PushButton("Clear List", icon=FIF.DELETE)
 
         # 添加到顶部布局
         top_layout.addWidget(self.task_type_combo)
@@ -81,7 +81,7 @@ class BatchProcessInterface(QWidget):
         # 创建任务表格
         self.task_table = TableWidget()
         self.task_table.setColumnCount(3)
-        self.task_table.setHorizontalHeaderLabels(["文件名", "进度", "状态"])
+        self.task_table.setHorizontalHeaderLabels(["File Name", "Progress", "Status"])
 
         # 设置表格样式
         self.task_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
@@ -139,13 +139,13 @@ class BatchProcessInterface(QWidget):
             audio_formats = [f"*.{fmt.value}" for fmt in SupportedAudioFormats]
             video_formats = [f"*.{fmt.value}" for fmt in SupportedVideoFormats]
             formats = audio_formats + video_formats
-            file_filter = f"音视频文件 ({' '.join(formats)})"
+            file_filter = f"Audio/Video Files ({' '.join(formats)})"
         elif task_type == BatchTaskType.SUBTITLE:
             # 获取所有支持的字幕格式
             subtitle_formats = [f"*.{fmt.value}" for fmt in SupportedSubtitleFormats]
-            file_filter = f"字幕文件 ({' '.join(subtitle_formats)})"
+            file_filter = f"Subtitle Files ({' '.join(subtitle_formats)})"
 
-        files, _ = QFileDialog.getOpenFileNames(self, "选择文件", "", file_filter)
+        files, _ = QFileDialog.getOpenFileNames(self, "Select Files", "", file_filter)
         if files:
             self.add_files(files)
 
@@ -174,8 +174,8 @@ class BatchProcessInterface(QWidget):
         # 如果有不存在的文件，显示警告
         if non_existent_files:
             InfoBar.warning(
-                title="文件不存在",
-                content=f"以下文件不存在：\n{', '.join(non_existent_files)}",
+                title="File Not Found",
+                content=f"The following files do not exist:\n{', '.join(non_existent_files)}",
                 duration=3000,
                 position=InfoBarPosition.TOP,
                 parent=self,
@@ -206,8 +206,8 @@ class BatchProcessInterface(QWidget):
 
         if not valid_files:
             InfoBar.warning(
-                title="无效文件",
-                content="请选择正确的文件类型",
+                title="Invalid Files",
+                content="Please select the correct file type",
                 duration=3000,
                 position=InfoBarPosition.TOP,
                 parent=self,
@@ -221,8 +221,8 @@ class BatchProcessInterface(QWidget):
                 if self.task_table.item(row, 0).toolTip() == file_path:
                     exists = True
                     InfoBar.warning(
-                        title="任务已存在",
-                        content="任务已存在",
+                        title="Task Exists",
+                        content="Task already exists",
                         duration=2000,
                         position=InfoBarPosition.TOP_RIGHT,
                         parent=self,
@@ -287,16 +287,16 @@ class BatchProcessInterface(QWidget):
         file_path = self.task_table.item(row, 0).toolTip()
         status = self.task_table.item(row, 2).text()
 
-        start_action = Action(FIF.PLAY, "开始")
+        start_action = Action(FIF.PLAY, "Start")
         start_action.triggered.connect(lambda: self.start_task(file_path))
         menu.addAction(start_action)
 
-        cancel_action = Action(FIF.CLOSE, "取消")
+        cancel_action = Action(FIF.CLOSE, "Cancel")
         cancel_action.triggered.connect(lambda: self.cancel_task(file_path))
         menu.addAction(cancel_action)
 
         menu.addSeparator()
-        open_folder_action = Action(FIF.FOLDER, "打开输出文件夹")
+        open_folder_action = Action(FIF.FOLDER, "Open Output Folder")
         open_folder_action.triggered.connect(lambda: self.open_output_folder(file_path))
         menu.addAction(open_folder_action)
 
@@ -349,8 +349,8 @@ class BatchProcessInterface(QWidget):
         # 检查是否有任务
         if self.task_table.rowCount() == 0:
             InfoBar.warning(
-                title="无任务",
-                content="请先添加需要处理的文件",
+                title="No Tasks",
+                content="Please add files to process",
                 duration=2000,
                 position=InfoBarPosition.TOP,
                 parent=self,
@@ -365,8 +365,8 @@ class BatchProcessInterface(QWidget):
 
         if waiting_tasks == 0:
             InfoBar.warning(
-                title="无待处理任务",
-                content="所有任务已经在处理或已完成",
+                title="No Pending Tasks",
+                content="All tasks are processing or completed",
                 duration=2000,
                 position=InfoBarPosition.TOP,
                 parent=self,
@@ -375,8 +375,8 @@ class BatchProcessInterface(QWidget):
 
         # 显示开始处理的提示
         InfoBar.success(
-            title="开始处理",
-            content=f"开始处理 {waiting_tasks} 个任务",
+            title="Starting",
+            content=f"Starting {waiting_tasks} tasks",
             duration=2000,
             position=InfoBarPosition.TOP,
             parent=self,
@@ -394,8 +394,8 @@ class BatchProcessInterface(QWidget):
         # 显示开始处理的提示
         file_name = os.path.basename(file_path)
         InfoBar.success(
-            title="开始处理",
-            content=f"开始处理文件：{file_name}",
+            title="Starting",
+            content=f"Starting processing: {file_name}",
             duration=2000,
             position=InfoBarPosition.TOP,
             parent=self,

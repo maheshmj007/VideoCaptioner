@@ -1,64 +1,64 @@
-# 更新日志
+# Changelog
 
 ## 2025.02.07
 
-### Bug 修复与其他改进
+### Bug fixes and other improvements
 
-- 修复谷歌翻译语言不正确的问题。
-- 修部微软翻译不准确的问题。
-- 修复运行设备不选择cuda时显示报 winError的错误
-- 修复合成失败的问题
-- 修复ass单语字幕没有内容的问题
+- Fixed incorrect language issue with Google Translate
+- Fixed inaccurate Microsoft Translate issue
+- Fixed WinError display issue when CUDA device is not selected
+- Fixed synthesis failure issue
+- Fixed ASS monolingual subtitle content missing issue
 
 ## 2024.2.06
 
-### 核心功能增强
+### Core functionality enhancements
 
-- 完整重构代码架构，优化整体性能
-- 字幕优化与翻译功能模块分离，提供更灵活的处理选项
-- 新增批量处理功能：支持批量字幕、批量转录、批量字幕视频合成
-- 全面优化 UI 界面与交互细节
+- Complete code architecture refactoring with overall performance optimization
+- Separated subtitle optimization and translation functionality modules for more flexible processing options
+- Added batch processing functionality: supports batch subtitles, batch transcription, batch subtitle video synthesis
+- Comprehensive UI interface and interaction detail optimization
 
-### AI 模型与翻译升级
+### AI model and translation upgrades
 
-- 扩展 LLM 支持：新增 SiliconCloud、DeepSeek、Ollama、Gemini、ChatGLM 等模型
-- 集成多种翻译服务：DeepLx、Bing、Google、LLM
-- 新增 faster-whisper-large-v3-turbo 模型支持
-- 新增多种 VAD（语音活动检测）方法
-- 支持自定义反思翻译开关
-- 字幕断句支持语义/句子两种模式
-- 字幕断句、优化、翻译提示词的优化
-- 字幕、转录缓存机制的优化
-- 优化中文字幕自动换行功能
-- 新增竖屏字幕样式
-- 改进字幕时间轴切换机制，消除闪烁问题
+- Extended LLM support: added SiliconCloud, DeepSeek, Ollama, Gemini, ChatGLM and other models
+- Integrated multiple translation services: DeepLx, Bing, Google, LLM
+- Added faster-whisper-large-v3-turbo model support
+- Added multiple VAD (Voice Activity Detection) methods
+- Support for custom reflection translation toggle
+- Subtitle segmentation supports semantic/sentence modes
+- Optimization of subtitle segmentation, optimization, and translation prompts
+- Optimization of subtitle and transcription caching mechanisms
+- Optimized Chinese subtitle auto-wrapping functionality
+- Added vertical screen subtitle styles
+- Improved subtitle timeline switching mechanism to eliminate flickering issues
 
-### Bug 修复与其他改进
+### Bug fixes and other improvements
 
-- 修复 Whisper API 无法使用问题
-- 新增多种字幕视频格式支持
-- 修复部分情况转录错误的问题
-- 优化视频工作目录结构
-- 新增日志查看功能
-- 新增泰语、德语等语言的字幕优化
-- 修复诸多Bug...
+- Fixed Whisper API usage issue
+- Added support for multiple subtitle video formats
+- Fixed transcription error issues in some cases
+- Optimized video working directory structure
+- Added log viewing functionality
+- Added subtitle optimization for Thai, German and other languages
+- Fixed numerous bugs...
 
 ## 2024.12.07
 
-- 新增 Faster-whisper 支持，音频转字幕质量更优
-- 支持Vad语音断点检测，大大减少幻觉现象
-- 支持人声音分离，分离视频背景噪音
-- 支持关闭视频合成
-- 新增字幕最大长度设置
-- 新增字幕末尾标点去除设置
-- 优化和翻译的提示词优化
-- 优化LLM字幕断句错误的情况
-- 修复音频转换格式不一致问题
+- Added Faster-whisper support for better audio-to-subtitle quality
+- Support for VAD voice breakpoint detection, greatly reducing hallucination phenomena
+- Support for voice separation, separating video background noise
+- Support for disabling video synthesis
+- Added subtitle maximum length setting
+- Added subtitle ending punctuation removal setting
+- Optimized prompts for optimization and translation
+- Optimized LLM subtitle segmentation error situations
+- Fixed audio conversion format inconsistency issue
 
 ## 2024.11.23
 
-- 新增 Whisper-v3 模型支持，大幅提升语音识别准确率
-- 优化字幕断句算法，提供更自然的阅读体验
+- Added Whisper-v3 model support, significantly improving speech recognition accuracy
+- Optimized subtitle segmentation algorithm for a more natural reading experience
 - 修复检测模型可用性时的稳定性问题
 
 ## 2024.11.20
