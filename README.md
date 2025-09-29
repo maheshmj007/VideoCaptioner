@@ -24,7 +24,7 @@ The latest version supports practical features including VAD, voice separation, 
 ## Interface Preview
 
 <div align="center">
-  <img src="https://h1.appinn.me/file/1731487405884_main.png" alt="Software Interface Preview" width="90%" style="border-radius: 5px;">
+  <img src="https://github.com/maheshmj007/VideoCaptioner/blob/master/resource/assets/front_page_preview.png" alt="Software Interface Preview" width="90%" style="border-radius: 5px;">
 </div>
 
 ![Page Preview](https://h1.appinn.me/file/1731487410170_preview1.png)
